@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.LayerManager;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.Sprite;
 
 public class MyBullet extends Sprite{
 	public int speed = 10;
@@ -31,7 +29,7 @@ public class MyBullet extends Sprite{
 	}
 
 	@Override
-	public void move(int dx, int dy) {
+	public void move(float dx, float dy) {
 		// TODO Auto-generated method stub
 		super.move(dx, dy);
 	}

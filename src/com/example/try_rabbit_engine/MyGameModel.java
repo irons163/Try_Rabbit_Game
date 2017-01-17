@@ -1,7 +1,6 @@
 package com.example.try_rabbit_engine;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -11,22 +10,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.YuvImage;
+import android.graphics.RectF;
 import android.util.Log;
 import android.view.MotionEvent;
+
+import com.example.try_gameengine.framework.CommonUtil;
+import com.example.try_gameengine.framework.Data;
+import com.example.try_gameengine.framework.GameModel;
+import com.example.try_gameengine.framework.Sprite;
+import com.example.try_gameengine.framework.Utils;
 import com.example.try_rabbit_engine.DirectionController.DirectionType;
-import com.example.try_rabbit_engine.MyBell.Rabbit_action;
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.ChessBoard;
-import com.example.try_wolfman.framework.ChessPointManager;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.Data;
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.LayerManager;
-import com.example.try_wolfman.framework.Logic;
-import com.example.try_wolfman.framework.PlayerManager;
-import com.example.try_wolfman.framework.Sprite;
-import com.example.try_wolfman.framework.Utils;
+
 
 public class MyGameModel extends GameModel implements IMoveEvent,
 		IAddAndRemoveEvent {
@@ -331,7 +325,9 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 					.get(carPosition);
 
 			if (!isCollision && movingObjectUtil.canCollision) {
-				isCollision = Rect.intersects(myRabbit.dst,
+//				isCollision = Rect.intersects(myRabbit.dst,
+//						movingObjectUtil.dst);
+				isCollision = RectF.intersects(myRabbit.dst,
 						movingObjectUtil.dst);
 				if (isCollision) {
 					collisionSprite = movingObjectUtil;
@@ -373,7 +369,7 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 					.get(carPosition);
 
 			if (!isCollision) {
-				isCollision = Rect.intersects(myRabbit.dst,
+				isCollision = RectF.intersects(myRabbit.dst,
 						movingObjectUtil.dst);
 				if (isCollision) {
 					collisionSprite = movingObjectUtil;

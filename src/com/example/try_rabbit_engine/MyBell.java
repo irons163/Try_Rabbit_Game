@@ -1,15 +1,12 @@
 package com.example.try_rabbit_engine;
 
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 
-import com.example.try_rabbit_engine.MyRabbit.Rabbit_action;
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.IActionListener;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.CommonUtil;
+import com.example.try_gameengine.framework.IActionListener;
+import com.example.try_gameengine.framework.Sprite;
+
 
 public class MyBell extends Sprite{
 	public boolean isExploded = false;

@@ -1,4 +1,4 @@
-package com.example.try_wolfman.framework;
+package com.example.try_rabbit_engine;
 
 import java.io.IOException;
 import java.io.InputStream;

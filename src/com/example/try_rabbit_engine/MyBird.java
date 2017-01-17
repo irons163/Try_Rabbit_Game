@@ -2,10 +2,9 @@ package com.example.try_rabbit_engine;
 
 import android.graphics.Bitmap;
 
-import com.example.try_rabbit_engine.MyBell.Rabbit_action;
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.CommonUtil;
+import com.example.try_gameengine.framework.Sprite;
+
 
 public class MyBird extends Sprite{
 	private int birdRightMoveSpeed = 3;
@@ -68,7 +67,7 @@ public class MyBird extends Sprite{
 	}
 
 	@Override
-	public void move(int dx, int dy) {
+	public void move(float dx, float dy) {
 		// TODO Auto-generated method stub
 		if(flyFromDirectionType == BirdFactory.flyFromDirectionLeft){
 			super.move(birdRightMoveSpeed, dy);

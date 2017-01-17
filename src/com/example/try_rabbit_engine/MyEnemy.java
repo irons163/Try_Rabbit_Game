@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.LayerManager;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.LayerManager;
+import com.example.try_gameengine.framework.Sprite;
+
+
 
 public class MyEnemy extends Sprite{
     public int timeSpan = 1000;     

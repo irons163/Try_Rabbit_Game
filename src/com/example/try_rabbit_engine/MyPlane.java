@@ -3,13 +3,11 @@ package com.example.try_rabbit_engine;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.renderscript.Script;
 
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.LayerManager;
-import com.example.try_wolfman.framework.Sprite;
-import com.example.try_wolfman.framework.Utils;
+import com.example.try_gameengine.framework.LayerManager;
+import com.example.try_gameengine.framework.Sprite;
+
+
 
 public class MyPlane extends Sprite{
     public int timeSpan = 1000;     

@@ -1,15 +1,13 @@
 package com.example.try_rabbit_engine;
 
-import java.util.Iterator;
-
 import android.content.Context;
-import android.graphics.Canvas;
 
-import com.example.try_wolfman.framework.Data;
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.GameView;
-import com.example.try_wolfman.framework.IGameController;
-import com.example.try_wolfman.framework.IGameModel;
+import com.example.try_gameengine.framework.Data;
+import com.example.try_gameengine.framework.GameModel;
+import com.example.try_gameengine.framework.GameView;
+import com.example.try_gameengine.framework.IGameModel;
+
+
 
 public class MyGameView extends GameView{
 	private Data data;
@@ -17,7 +15,7 @@ public class MyGameView extends GameView{
 //	private Iterator<MyEnemy> allExistPointsIterator; 
 	MyGameController gameController;
 	public MyGameView(Context context, MyGameController gameController,
-			GameModel gameModel) {
+			IGameModel gameModel) {
 		super(context, gameController, gameModel);
 		// TODO Auto-generated constructor stub
 		data = gameModel.getData();

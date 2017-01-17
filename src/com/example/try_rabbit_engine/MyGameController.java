@@ -1,21 +1,19 @@
 package com.example.try_rabbit_engine;
 
 import android.app.Activity;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 
-import com.example.try_wolfman.framework.GameController;
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.GameView;
-import com.example.try_wolfman.framework.IGameModel;
+import com.example.try_gameengine.framework.GameController;
+import com.example.try_gameengine.framework.GameView;
+import com.example.try_gameengine.framework.IGameModel;
 
 public class MyGameController extends GameController implements IMoveEvent{
 	MyGameModel myGameModel;
+	GameView gameView;
+	
 	public MyGameController(Activity activity, MyGameModel gameModel) {
-		this.gameModel = gameModel;
-		myGameModel = gameModel;
-		GameView gameView = new MyGameView(activity, this, gameModel);
-		activity.setContentView(gameView);
+		super(activity, gameModel);
+		
+		initStart();
 	}
 	
 //	@Override
@@ -69,5 +67,32 @@ public class MyGameController extends GameController implements IMoveEvent{
 	public void moveBullet() {
 		// TODO Auto-generated method stub
 		myGameModel.moveBullet();
+	}
+
+	@Override
+	protected void initGameView(Activity activity, IGameModel gameModel) {
+		// TODO Auto-generated method stub
+		this.gameModel = gameModel;
+		myGameModel = (MyGameModel) gameModel;
+		gameView = new MyGameView(activity, this, gameModel);
+		
+	}
+
+	@Override
+	protected void arrangeView() {
+		// TODO Auto-generated method stub
+		activity.setContentView(gameView);
+	}
+
+	@Override
+	protected void beforeGameStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void afterGameStart() {
+		// TODO Auto-generated method stub
+		
 	}
 }

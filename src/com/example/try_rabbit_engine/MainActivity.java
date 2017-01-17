@@ -2,21 +2,12 @@ package com.example.try_rabbit_engine;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
-import com.example.try_wolfman.framework.BaseActivity;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.GameController;
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.IGameController;
-import com.example.try_wolfman.framework.IGameModel;
 
 public class MainActivity extends Activity {
 	private MyGameModel gameModel;

@@ -1,7 +1,9 @@
 package com.example.try_rabbit_engine;
 
-import com.example.try_wolfman.framework.ArrayUtil;
-import com.example.try_wolfman.framework.ChessBoard;
+import com.example.try_gameengine.framework.ArrayUtil;
+import com.example.try_gameengine.framework.ChessBoard;
+
+
 
 public class MyChessBoard extends ChessBoard{
 

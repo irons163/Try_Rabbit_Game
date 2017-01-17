@@ -3,9 +3,7 @@ package com.example.try_rabbit_engine;
 import java.util.List;
 import java.util.Random;
 
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.CommonUtil;
 
 import android.graphics.Point;
 import android.util.Log;

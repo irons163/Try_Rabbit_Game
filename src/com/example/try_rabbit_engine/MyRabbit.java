@@ -1,17 +1,14 @@
 package com.example.try_rabbit_engine;
 
-import java.text.DecimalFormat;
-import java.util.logging.SimpleFormatter;
-
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.Log;
 
+import com.example.try_gameengine.framework.CommonUtil;
+import com.example.try_gameengine.framework.Sprite;
 import com.example.try_rabbit_engine.DirectionController.DirectionType;
-import com.example.try_wolfman.framework.BitmapUtil;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.Sprite;
+
 
 public class MyRabbit extends Sprite {
 	public boolean isUpToScreenMid = false;
@@ -132,7 +129,7 @@ public class MyRabbit extends Sprite {
 	private boolean isDownBellowScreen = false;
 
 	@Override
-	public synchronized void move(int dx, int dy) {
+	public synchronized void move(float dx, float dy) {
 		// TODO Auto-generated method stub
 		// super.move(dx, dy);
 		float x = getX();

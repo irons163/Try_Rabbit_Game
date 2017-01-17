@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.Sprite;
+
 
 public class MyButton extends Sprite{
 	private boolean isVisiable = true;

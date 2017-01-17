@@ -1,6 +1,5 @@
 package com.example.try_rabbit_engine;
 
-import com.example.try_wolfman.framework.BitmapUtil;
 
 import android.graphics.Bitmap;
 

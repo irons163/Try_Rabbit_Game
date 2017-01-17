@@ -1,16 +1,9 @@
 package com.example.try_rabbit_engine;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 
-import com.example.try_wolfman.framework.BaseActivity;
-import com.example.try_wolfman.framework.CommonUtil;
-import com.example.try_wolfman.framework.GameController;
-import com.example.try_wolfman.framework.GameModel;
-import com.example.try_wolfman.framework.IGameController;
-import com.example.try_wolfman.framework.IGameModel;
+import com.example.try_gameengine.framework.BaseActivity;
 
 public class MyGameActivity extends BaseActivity {
 	private MyGameModel gameModel;
@@ -20,6 +13,9 @@ public class MyGameActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.activity_main);
+		
+		
+		
 	}
 
 	
@@ -27,6 +23,7 @@ public class MyGameActivity extends BaseActivity {
 	@Override
 	protected void initGameModel() {
 		// TODO Auto-generated method stub
+		BitmapUtil.initBitmap(this);
 		gameModel = new MyGameModel(this, new MyData());
 //		gameModel.setData(new MyData());
 	}

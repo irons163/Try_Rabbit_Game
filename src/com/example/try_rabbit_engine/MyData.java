@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.example.try_wolfman.framework.Data;
-import com.example.try_wolfman.framework.Sprite;
+import com.example.try_gameengine.framework.Data;
+import com.example.try_gameengine.framework.Sprite;
+
 
 public class MyData extends Data {
 	private List<Sprite> allExistPoints;
