@@ -7,10 +7,12 @@ import android.util.Log;
 
 import com.example.try_rabbit_engine.DirectionController.DirectionType;
 import com.example.try_wolfman.framework.BitmapUtil;
+import com.example.try_wolfman.framework.CommonUtil;
 import com.example.try_wolfman.framework.Sprite;
 
 public class MyRabbit extends Sprite {
-
+	public boolean isUpToScreenMid = false;
+	
 	enum Rabbit_action {
 
 		LMove(
@@ -112,9 +114,9 @@ public class MyRabbit extends Sprite {
 	}
 
 	public static final int SPEED_JUMP = 20;
-	private float speedX;
-	private float speedY;
-	private float speedG = 0.8f;
+	public float speedX;
+	public float speedY;
+	private float speedG = 0.6f;
 	private boolean isPlayerJumping = false;
 	private float initY;
 	private boolean isFirstDowning = true;
@@ -124,7 +126,8 @@ public class MyRabbit extends Sprite {
 	public synchronized void move(int dx, int dy) {
 		// TODO Auto-generated method stub
 		// super.move(dx, dy);
-
+		float x = getX();
+		float y = getY();
 		if (isStop) {
 			frameIdx = 0;
 			continueMoveX = dx;
@@ -156,23 +159,28 @@ public class MyRabbit extends Sprite {
 				
 					speedY -= speedG;
 
-					x += speedX;
-					y -= speedY;
+					setX(x += speedX);
+					setY(y -= speedY);
 					if (y >= initY) {
 						isPlayerJumping = false;						
-						y = initY;
+						setY(initY);
 						forceToNextFrameBitmap();
 					}
 				
-					this.x += dx;
-//					float a = y;
-					this.y += dy;
-//					float b = y;
+					setX(x += dx);
+					setY(y += dy);
 			}else{
-				this.x += continueMoveX;
-				this.y += continueMoveY;
+				setX(x += continueMoveX);
+				setY(y += continueMoveY);
 			}	
 					
+		}
+		
+		if(y <= CommonUtil.screenHeight/2){
+			setY(CommonUtil.screenHeight/2);
+			isUpToScreenMid = true;
+		}else if(speedY < 0){
+			isUpToScreenMid = false;
 		}
 	}
 

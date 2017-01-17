@@ -15,8 +15,8 @@ public class BackGroundLayer extends ALayer {
 		src.top = 0;
 		src.right = w;
 		src.bottom = h;
-		dst.left = (int) x;
-		dst.top = (int) y;
+		dst.left = (int) getX();
+		dst.top = (int) getY();
 		dst.right = dst.left + w;
 		dst.bottom = dst.top + h;
 		canvas.drawBitmap(bitmap, src, dst, paint);

@@ -41,7 +41,7 @@ public class MyPlane extends Sprite{
 		                         
 		MyBullet	b = new MyBullet(BitmapUtil.getBitmapFromRes(R.drawable.bell_ok), 50, 50, true);                         
 //			b.setPosition(x + w / 2, y);  
-		b.setPosition(x - 50/2, y);
+		b.setPosition(getX() - 50/2, getY());
 			b.setAction("bb");                     
 			LayerManager.insert(b, this);           
 //			GameData.bullets.add(b);                      

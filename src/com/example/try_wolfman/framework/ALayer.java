@@ -12,8 +12,10 @@ import android.graphics.RectF;
 
 /** * 层类，组件的父类，添加组件，设置组件位置，绘制自己， 是所有人物和背景的基类 * * @author Administrator * */
 public abstract class ALayer {
-	public float x;// 层的x坐标
-	public float y;// 层的y坐标
+	private float x;// 层的x坐标
+	private float y;// 层的y坐标
+	public float centerX;
+	public float centerY;
 //	public float centerX;// 层的x坐标
 //	public float centerY;// 层的y坐标
 	public int w;// 层的宽度
@@ -27,6 +29,8 @@ public abstract class ALayer {
 		this.bitmap = bitmap;
 		this.w = w;
 		this.h = h;
+		this.centerX = w / 2;
+		this.centerY = h / 2;
 		src = new Rect();
 		dst = new Rect();
 		if (autoAdd) {
@@ -34,10 +38,23 @@ public abstract class ALayer {
 		}
 	}
 	
+//	protected ALayer(Bitmap bitmap, int w, int h, boolean autoAdd) {
+//		this.bitmap = BitmapUtil.createSpecificSizeBitmap(drawable, width, height)(resId);BitmapUtil.getBitmapFromRes(resId);
+//		this.w = w;
+//		this.h = h;
+//		src = new Rect();
+//		dst = new Rect();
+//		if (autoAdd) {
+//			LayerManager.addLayer(this);// 在LayerManager类中添加本组件
+//		}
+//	}
+	
 	protected ALayer(Bitmap bitmap, int w, int h, boolean autoAdd, int level) {
 		this.bitmap = bitmap;
 		this.w = w;
 		this.h = h;
+		this.centerX = w / 2;
+		this.centerY = h / 2;
 		src = new Rect();
 		dst = new Rect();
 		if (autoAdd) {
@@ -49,6 +66,8 @@ public abstract class ALayer {
 	public void setPosition(float x, float y) {
 		this.x = x;
 		this.y = y;
+		this.centerX = x + w / 2;
+		this.centerY = y + h / 2;
 //		this.centerX = x - w / 2;
 //		this.centerX = y - h / 2;
 	}
@@ -156,5 +175,39 @@ public abstract class ALayer {
 	
 	public ALayer getParent(){
 		return parent;
+	}
+	
+	public void setWidth(int w){
+		this.w = w;
+	}
+	
+	public void setHeight(int h){
+		this.h= h;
+	}
+	
+	public float getX(){
+		return x;
+	}
+	
+	public float getCenterX(){
+		return centerX;
+	}
+	
+	public void setX(float x){
+		this.x = x;
+		this.centerX = x + w/2;
+	}
+	
+	public float getY(){
+		return y;
+	}
+	
+	public float getCenterY(){
+		return centerY;
+	}
+	
+	public void setY(float y){
+		this.y = y;
+		this.centerY = y + h/2;
 	}
 }

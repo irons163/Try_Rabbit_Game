@@ -8,19 +8,36 @@ import com.example.try_wolfman.framework.CommonUtil;
 import com.example.try_wolfman.framework.Sprite;
 
 import android.graphics.Point;
+import android.util.Log;
 
 public class BellFactory {
 	private int bellWidth = 60;
 	private int bellHeight = 60;
-	private int minDistanceX = (int) (bellWidth*1.5);
-	private int maxDistanceX = bellWidth*3;
-	private int minDistanceY = MyRabbit.SPEED_JUMP/4 * MyRabbit.SPEED_JUMP;
-	private int maxDistanceY = MyRabbit.SPEED_JUMP/2 * MyRabbit.SPEED_JUMP;
-	private int baseYToCalculateNextRowY;
-	
+	private int minDistanceX = (int) (bellWidth*3);
+	private int maxDistanceX = (int) (bellWidth*4.5);
+	private int minDistanceY = (int) (MyRabbit.SPEED_JUMP/2.5 * MyRabbit.SPEED_JUMP);
+	private int maxDistanceY = (int)(MyRabbit.SPEED_JUMP/1.5 * MyRabbit.SPEED_JUMP +300);
+//	private int baseYToCalculateNextRowY;
+	private MyBell baseMyBellToCalculateNextRowY;
+	private List<MyBell> bells;
 	public BellFactory(float rabbitY) {
 		// TODO Auto-generated constructor stub
-		baseYToCalculateNextRowY = (int) rabbitY;
+		initeBellFactory(rabbitY, bells);
+	}
+	
+	public BellFactory(float rabbitY, List<MyBell> bells) {
+		// TODO Auto-generated constructor stub
+		initeBellFactory(rabbitY, bells);
+	}
+	
+	private void initeBellFactory(float rabbitY, List<MyBell> bells){
+		baseMyBellToCalculateNextRowY = new MyBell(null, 0, 0, false);
+		baseMyBellToCalculateNextRowY.setPosition(0, rabbitY);
+		this.bells = bells;
+	}
+	
+	public MyBell createBell(){
+		return createBell(bells);
 	}
 	
 	public MyBell createBell(List<MyBell> bells){
@@ -37,27 +54,31 @@ public class BellFactory {
 	}
 	
 	private Point randomFirstBellXY(){
-		return createNextBellXY(0, baseYToCalculateNextRowY);
+		return createNextBellXY(baseMyBellToCalculateNextRowY);
 	}
 	
 	private Point randomNextBellXY(MyBell currentBell){
-		int currentBellX = (int) currentBell.x;
-		int currentBellY = (int) currentBell.y;
+//		int currentBellX = (int) currentBell.x;
+//		int currentBellY = (int) currentBell.y;
 		
-		return createNextBellXY(currentBellX, currentBellY);
+//		return createNextBellXY(currentBellX, currentBellY);
+		return createNextBellXY(currentBell);
 	}
 	
-	private Point createNextBellXY(int currentBellX, int currentBellY){
+	private Point createNextBellXY(MyBell currentBell){
 		Point point = new Point();
 		Random random = new Random();
+		int currentBellX = (int) currentBell.getX();
+		int currentBellY = (int) currentBell.getY();
 		int x = random.nextInt(maxDistanceX - minDistanceX) + minDistanceX + currentBellX;
 		int y;
 		if(x > CommonUtil.screenWidth - bellWidth){
-			baseYToCalculateNextRowY = currentBellY;
-			x -= CommonUtil.screenWidth;
+			baseMyBellToCalculateNextRowY = currentBell;
+			x -= (CommonUtil.screenWidth - bellWidth);
+			Log.e("X", x+"");
 			y = currentBellY - (random.nextInt(maxDistanceY - minDistanceY) + minDistanceY);
 		}else{
-			y = baseYToCalculateNextRowY - (random.nextInt(maxDistanceY - minDistanceY) + minDistanceY);
+			y = (int) (baseMyBellToCalculateNextRowY.getY() - (random.nextInt(maxDistanceY - minDistanceY) + minDistanceY));
 		}
 		point.set(x, y);
 		return point;

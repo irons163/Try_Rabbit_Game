@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.example.try_rabbit_engine.MyBell.Rabbit_action;
 import com.example.try_wolfman.framework.BitmapUtil;
+import com.example.try_wolfman.framework.CommonUtil;
 import com.example.try_wolfman.framework.Sprite;
 
 public class MyBird extends Sprite{
@@ -82,5 +83,16 @@ public class MyBird extends Sprite{
 		}else{
 			setAction(Rabbit_action.LBirdFly.getName());
 		}
+	}
+	
+	@Override
+	public boolean isNeedRemoveInstance(){
+		boolean isNeedRemoveInstance = false;
+		if(flyFromDirectionType == BirdFactory.flyFromDirectionLeft && getX() >= CommonUtil.screenWidth){
+			isNeedRemoveInstance = true;
+		}else if(flyFromDirectionType == BirdFactory.flyFromDirectionRight && getX() <= 0){
+			isNeedRemoveInstance = true;
+		}
+		return isNeedRemoveInstance; 
 	}
 }
