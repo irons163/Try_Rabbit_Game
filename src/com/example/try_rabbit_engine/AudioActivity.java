@@ -70,25 +70,25 @@ public class AudioActivity extends Activity{
 		public void onDraw(Canvas canvas){
 			super.onDraw(canvas);
 			canvas.drawColor(Color.BLACK);
-			paint.setTextSize(20);
+			paint.setTextSize(50);
 			paint.setColor(Color.WHITE);
-			canvas.drawText("�Ƿ�����?", 125, 85, paint);
+			canvas.drawText("是否開啟音樂?", 400, 200, paint);
 			if(click){
 				if(audio_on){
 					paint.setColor(Color.RED);
-					canvas.drawText("��", 33, 197, paint);
+					canvas.drawText("開啟", 300, 500, paint);
 					paint.setColor(Color.WHITE);
-					canvas.drawText("��", 336, 197, paint);
+					canvas.drawText("關閉", 600, 500, paint);
 				}else{
 					paint.setColor(Color.WHITE);
-					canvas.drawText("��", 33, 197, paint);
+					canvas.drawText("開啟", 300, 500, paint);
 					paint.setColor(Color.RED);
-					canvas.drawText("��", 336, 197, paint);
+					canvas.drawText("關閉", 600, 500, paint);
 				}
 			}else {
 					paint.setColor(Color.WHITE);
-					canvas.drawText("��", 33, 197, paint);
-					canvas.drawText("��", 336, 197, paint);
+					canvas.drawText("開啟", 300, 500, paint);
+					canvas.drawText("關閉", 600, 500, paint);
 			}
 		}
 

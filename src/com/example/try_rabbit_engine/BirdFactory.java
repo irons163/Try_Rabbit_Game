@@ -19,6 +19,7 @@ public class BirdFactory {
 	public static final int flyFromDirectionLeft = 0;
 	public static final int flyFromDirectionRight = 1;
 	private int flyFromDirectionTypeCount = 2;
+	private int flyFromDirection;
 	
 	public BirdFactory() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,7 @@ public class BirdFactory {
 		
 		MyBird myBird = new MyBird(BitmapUtil.getBitmapFromRes(R.drawable.bird_left_fly0), birdWidth, birdHeight, true);
 		myBird.setPosition(newBirdXY.x, newBirdXY.y);
+		myBird.setFlyFromDirection(flyFromDirection);
 		return myBird;		
 	}
 	
@@ -41,8 +43,10 @@ public class BirdFactory {
 		int x;
 		if(random.nextInt(flyFromDirectionTypeCount) == flyFromDirectionLeft){
 			x = 0 - birdWidth;
+			flyFromDirection = flyFromDirectionLeft;
 		} else{
 			x = CommonUtil.screenWidth;
+			flyFromDirection = flyFromDirectionRight;
 		}
 		
 		int y =  random.nextInt(CommonUtil.screenHeight - birdHeight);

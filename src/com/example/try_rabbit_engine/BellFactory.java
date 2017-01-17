@@ -13,10 +13,10 @@ import android.util.Log;
 public class BellFactory {
 	private int bellWidth = 60;
 	private int bellHeight = 60;
-	private int minDistanceX = (int) (bellWidth*3);
-	private int maxDistanceX = (int) (bellWidth*4.5);
-	private int minDistanceY = (int) (MyRabbit.SPEED_JUMP/2.5 * MyRabbit.SPEED_JUMP);
-	private int maxDistanceY = (int)(MyRabbit.SPEED_JUMP/1.5 * MyRabbit.SPEED_JUMP +300);
+	private int minDistanceX = (int) (bellWidth*2);
+	private int maxDistanceX = (int) (bellWidth*3.5);
+	private int minDistanceY = (int) (MyRabbit.SPEED_JUMP/2.5 * MyRabbit.SPEED_JUMP/MyRabbit.speedG);
+	private int maxDistanceY = (int)(MyRabbit.SPEED_JUMP/1.6 * MyRabbit.SPEED_JUMP/MyRabbit.speedG);
 //	private int baseYToCalculateNextRowY;
 	private MyBell baseMyBellToCalculateNextRowY;
 	private List<MyBell> bells;

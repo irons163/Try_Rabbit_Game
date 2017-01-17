@@ -71,9 +71,9 @@ public class MyBird extends Sprite{
 	public void move(int dx, int dy) {
 		// TODO Auto-generated method stub
 		if(flyFromDirectionType == BirdFactory.flyFromDirectionLeft){
-			super.move(birdRightMoveSpeed, 0);
+			super.move(birdRightMoveSpeed, dy);
 		}else{
-			super.move(birdLeftMoveSpeed, 0);
+			super.move(birdLeftMoveSpeed, dy);
 		}
 	}
 

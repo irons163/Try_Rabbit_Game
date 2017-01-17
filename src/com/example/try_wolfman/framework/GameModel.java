@@ -124,7 +124,7 @@ public class GameModel implements IGameModel{
 		}
 	});
 	
-	private boolean isGameRun = true;
+	protected boolean isGameRun = true;
 	
 //	protected void gameThreadStart(){
 //		

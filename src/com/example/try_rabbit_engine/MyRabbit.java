@@ -1,5 +1,8 @@
 package com.example.try_rabbit_engine;
 
+import java.text.DecimalFormat;
+import java.util.logging.SimpleFormatter;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -70,10 +73,10 @@ public class MyRabbit extends Sprite {
 				Rabbit_action.RMove.getBitmaps(), new int[] { 50, 250, 250 },
 				false);
 		addAction(Rabbit_action.LJump.getName(),
-				Rabbit_action.LJump.getBitmaps(), new int[] { 1000, 1500, 1500 },
+				Rabbit_action.LJump.getBitmaps(), new int[] { 50, 1500, 1500 },
 				false);
 		addAction(Rabbit_action.RJump.getName(),
-				Rabbit_action.RJump.getBitmaps(), new int[] { 1000, 1500, 1500 },
+				Rabbit_action.RJump.getBitmaps(), new int[] { 50, 1500, 1500 },
 				false);
 		addAction(Rabbit_action.LDown.getName(),
 				Rabbit_action.LDown.getBitmaps(), new int[] { 0, 3000},
@@ -113,15 +116,17 @@ public class MyRabbit extends Sprite {
 		super.addAction(name, frames, frameTime);
 	}
 
-	public static final int SPEED_JUMP = 20;
+	public static final int SPEED_JUMP = 10;
 	public float speedX;
 	public float speedY;
-	private float speedG = 0.6f;
+	public static float speedG = 0.2f;
 	private boolean isPlayerJumping = false;
 	private float initY;
 	private boolean isFirstDowning = true;
 	private float continueMoveX, continueMoveY;
-	
+	private float maxHeight;
+	private boolean isDownBellowScreen = false;
+
 	@Override
 	public synchronized void move(int dx, int dy) {
 		// TODO Auto-generated method stub
@@ -165,10 +170,13 @@ public class MyRabbit extends Sprite {
 						isPlayerJumping = false;						
 						setY(initY);
 						forceToNextFrameBitmap();
+					}else if(y > CommonUtil.screenHeight){
+						//over
+						isDownBellowScreen = true;
 					}
 				
-					setX(x += dx);
-					setY(y += dy);
+//					setX(x += dx);
+//					setY(y += dy);
 			}else{
 				setX(x += continueMoveX);
 				setY(y += continueMoveY);
@@ -177,9 +185,16 @@ public class MyRabbit extends Sprite {
 		}
 		
 		if(y <= CommonUtil.screenHeight/2){
+			maxHeight += CommonUtil.screenHeight/2 - y; 
 			setY(CommonUtil.screenHeight/2);
+//			if(maxHeight > CommonUtil.screenHeight/2 - initY)
+			initY += CommonUtil.screenHeight/2 - y;	
 			isUpToScreenMid = true;
-		}else if(speedY < 0){
+		}else if(maxHeight < initY - CommonUtil.screenHeight/2 && speedY >= 0){
+			maxHeight += speedY;
+		}
+		
+		if(speedY < 0){
 			isUpToScreenMid = false;
 		}
 	}
@@ -201,9 +216,22 @@ public class MyRabbit extends Sprite {
 				setAction(Rabbit_action.LJump.getName());
 				this.speedX = -3;
 			}
-			this.isPlayerJumping = isPlayerJumping;
+			
+			this.isPlayerJumping = isPlayerJumping;		
 			this.speedY = SPEED_JUMP;
 			this.isFirstDowning = true;
 		}
+	}
+	
+	public float getMaxHeight() {
+		return maxHeight;
+	}
+
+	public void setMaxHeight(float maxHeight) {
+		this.maxHeight = maxHeight;
+	}
+	
+	public boolean isDownBellowScreen(){
+		return isDownBellowScreen;
 	}
 }

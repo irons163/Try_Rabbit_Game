@@ -1,5 +1,6 @@
 package com.example.try_rabbit_engine;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -57,8 +58,21 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 	private BellFactory bellFactory;
 	private BirdFactory birdFactory;
 
-	private boolean isEnableCreateBire = false;
+	private boolean isEnableCreateBird = false;
+	
+	private boolean isGamePrepareToStop = false;
+	
+	private final int INIT_MAX_BIRD_NUMBER = 1;
+	private int currentMaxBirdNum = INIT_MAX_BIRD_NUMBER;
 
+	private int explodedBellCount = 0;
+	
+	private int processCount = 0;
+	
+	private final int INCREASE_BIRD_MAX_NUM_BY_HOW_MANY_EXPLODE_BELL = 20;
+	
+	private String maxHeightMeter;
+	
 	public MyGameModel(Context context, Data data) {
 		super(context, data);
 		// TODO Auto-generated constructor stub
@@ -185,8 +199,11 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 		// movePlane();
 		// moveEnemy();
 		// moveBullet();
-
-		moveSprite(myBirdData.getAllExistPointsIterator(), 0, 0);
+		
+		if(isGamePrepareToStop)
+			isGameRun = false;
+		
+//		moveSprite(myBirdData.getAllExistPointsIterator(), 0, 0);
 		// moveSprite(myEnemyData.getAllExistPointsIterator(),
 		// moveRightDestance, moveDownDestance);
 		// moveSprite(myBulletData.getAllExistPointsIterator(), 0,
@@ -213,6 +230,9 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 		// }
 
 		moveSprite(myRabbitData.getAllExistPointsIterator(), 0, 0);
+		if(myRabbit.isDownBellowScreen())
+			isGamePrepareToStop = true;
+		
 		MyBell collisionBell;
 		if (!myRabbit.isUpToScreenMid) {
 			collisionBell = (MyBell) checkSpriteCollision((List<Sprite>) myBellData
@@ -225,6 +245,7 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 
 		if (collisionBell != null) {
 			collisionBell.bellExplode();
+			explodedBellCount++;
 //			((List<Sprite>) myBellData.getAllExistPoints())
 //					.remove(collisionBell);
 			if (DirectionController.getDirectionType() == DirectionType.LEFT) {
@@ -240,15 +261,33 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 			myJumpBtn.setIsVisiable(true);
 		}
 
-		if (isEnableCreateBire) {
+		calcuCurrentMaxBirdNum();
+		processCount++;
+		if (isEnableCreateBird && processCount>30) {
+			processCount=0;
 			Random random = new Random();
 			int birdCount = ((List<Sprite>) myBirdData.getAllExistPoints())
 					.size();
-			if (birdCount <= random.nextInt(1)) {
+			if (birdCount <= random.nextInt(currentMaxBirdNum)) {
 				MyBird myBird = birdFactory.createBird();
 				myBirdData.addSprite(myBird);
 				myBird.setAction();
 			}
+		}
+		
+		MyBird collisionBird;
+		if (!myRabbit.isUpToScreenMid) {
+//			collisionBird = (MyBird) checkSpriteCollision((List<Sprite>) myBirdData
+//					.getAllExistPoints());
+			collisionBird = (MyBird) checkSpriteCollisionAndMoveAndCreateRemoveInstance(
+					(List<Sprite>) myBirdData.getAllExistPoints(), 0, 0);
+		} else {
+			collisionBird = (MyBird) checkSpriteCollisionAndMoveAndCreateRemoveInstance(
+					(List<Sprite>) myBirdData.getAllExistPoints(), 0,
+					(int) myRabbit.speedY);
+		}
+		if (collisionBird != null) {
+			isGamePrepareToStop = true;
 		}
 		
 		for(MyBell bell : (List<MyBell>)myBellData.getAllExistPoints()){
@@ -257,6 +296,8 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 				break;
 			}
 		}
+		
+		maxHeightMeter = getMaxHeightMeter(myRabbit.getMaxHeight());
 	}
 
 	private Sprite checkSpriteCollision(List<Sprite> movingObjectUtilarrayList) {
@@ -465,6 +506,10 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 		}
 		drawSprite(myBirdData.getAllExistPointsIterator(), canvas);
 		myJumpBtn.drawSelf(canvas, null);
+		
+		drawExplodeBellCount(canvas);
+		drawMaxHeightMeter(canvas);
+		
 	}
 
 	private void drawSprite(Iterator<Sprite> iterator, Canvas canvas) {
@@ -474,11 +519,35 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 		}
 	}
 
+	private void drawExplodeBellCount(Canvas canvas){
+		Paint paint = new Paint();
+		paint.setColor(Color.RED);
+		paint.setTextSize(40);
+		canvas.drawText(explodedBellCount+"", 50, 50, paint);
+	}
+	
+	private void drawMaxHeightMeter(Canvas canvas){
+		Paint paint = new Paint();
+		paint.setColor(Color.RED);
+		paint.setTextSize(40);
+		canvas.drawText(maxHeightMeter+"", 150, 50, paint);
+	}
+	
 	private void moveSprite(Iterator<Sprite> iterator, int dx, int dy) {
 		// gameController.drawPlane(canvas);
 		while (iterator.hasNext()) {
 			iterator.next().move(dx, dy);
 		}
+	}
+
+	private void calcuCurrentMaxBirdNum(){
+		currentMaxBirdNum = explodedBellCount/INCREASE_BIRD_MAX_NUM_BY_HOW_MANY_EXPLODE_BELL +1 ;
+	}
+	
+	private String getMaxHeightMeter(float maxHeight) {
+		DecimalFormat df=new DecimalFormat("#.##");
+		String maxHeightMeter = df.format(maxHeight/200);
+		return maxHeightMeter;
 	}
 
 	@Override
@@ -499,7 +568,7 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 				// myRabbit.setPlayerJumping(true);
 				// }
 
-				isEnableCreateBire = true;
+				isEnableCreateBird = true;
 			} else if (event.getX() < CommonUtil.screenWidth / 2) {
 				myRabbit.move(-3, 0);
 				DirectionController.setDirectionType(DirectionType.LEFT);
@@ -508,6 +577,10 @@ public class MyGameModel extends GameModel implements IMoveEvent,
 				DirectionController.setDirectionType(DirectionType.RIGHT);
 			}
 		}
+	}
+	
+	public void isGamePrepareToStop(){
+		isGamePrepareToStop = true;
 	}
 
 	@Override
