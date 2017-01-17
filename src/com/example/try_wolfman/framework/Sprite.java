@@ -10,9 +10,9 @@ import android.util.Log;
 
 public class Sprite extends ALayer {
 	public int frameIdx;// 当前帧下标
-	public int currentFrame = 0;// 当前帧
-	public Hashtable<String, SpriteAction> actions;// 动作集合
-	public SpriteAction currentAction;// 当前动作
+	public int currentFrame = 0;// 當前幀
+	public Hashtable<String, SpriteAction> actions;// 動作集合
+	public SpriteAction currentAction;// 當前動作
 
 	public boolean isStop = false;
 //	public boolean isEnableInterruptAction = false;
@@ -59,13 +59,13 @@ public class Sprite extends ALayer {
 	@Override
 	public void drawSelf(Canvas canvas, Paint paint) {
 		long a = System.currentTimeMillis();
-		if (currentAction != null) {
-			if(currentAction.frames!=null){
-				currentFrame = currentAction.frames[frameIdx];// 获取当前需要的帧
-			}else{
-				bitmap = currentAction.bitmapFrames[frameIdx];
-			}
-		} // 截取图片中需要的帧
+//		if (currentAction != null) {
+//			if(currentAction.frames!=null){
+//				currentFrame = currentAction.frames[frameIdx];// 获取当前需要的帧
+//			}else{
+//				bitmap = currentAction.bitmapFrames[frameIdx];
+//			}
+//		} // 截取图片中需要的帧
 		src.left = (int) (currentFrame * w * scale);// 左端宽度：当前帧乘上帧的宽度
 		src.top = 0;// 上端高度：0
 		src.right = (int) (src.left + w * scale);// 右端宽度：左端宽度加上帧的宽度
@@ -170,14 +170,19 @@ public class Sprite extends ALayer {
 		public void nextBitmap(){			
 			if (System.currentTimeMillis() > updateTime && !isStop) {
 				actionListener.beforeChangeFrame(frameIdx+1);
-				frameIdx++;// 帧下标增加
-				frameIdx %= bitmapFrames.length;
+//				frameIdx++;// 帧下标增加
+//				frameIdx %= bitmapFrames.length;
 				
-				if(!isLoop && frameIdx==0){
+				if(!isLoop && frameIdx==bitmapFrames.length-1){
+					bitmap = bitmapFrames[frameIdx];
 					isStop = true;
 					actionListener.actionFinish();
 				}else{
 					bitmap = bitmapFrames[frameIdx];
+					
+					frameIdx++;// 帧下标增加
+					frameIdx %= bitmapFrames.length;
+					
 					updateTime = System.currentTimeMillis() + frameTime[frameIdx];// 切换下一帧所需要的时间
 					
 					int w = bitmap.getWidth();
@@ -187,11 +192,14 @@ public class Sprite extends ALayer {
 					setHeight(bitmap.getHeight());
 					int periousId = frameIdx-1<0 ? bitmapFrames.length+(frameIdx-1) : frameIdx-1;
 					actionListener.afterChangeFrame(periousId);
+					
 				}
+
 			}
 		}
 		
 		public void forceToNextBitmap(){
+			bitmap = bitmapFrames[frameIdx];
 			frameIdx++;// 帧下标增加
 			frameIdx %= bitmapFrames.length;
 			if(!isLoop && frameIdx==0){

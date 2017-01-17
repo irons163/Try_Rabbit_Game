@@ -19,10 +19,11 @@ public class MyBell extends Sprite{
 		BellExplode(
 				"BELL_EXPLODE",
 				new Bitmap[] {
-						BitmapUtil
-						.getBitmapFromRes(R.drawable.bell_explode2),
+						
 						BitmapUtil
 								.getBitmapFromRes(R.drawable.bell_explode1),
+						BitmapUtil
+								.getBitmapFromRes(R.drawable.bell_explode2),
 						BitmapUtil
 								.getBitmapFromRes(R.drawable.bell_explode2),
 						 }

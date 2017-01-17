@@ -21,30 +21,34 @@ public class MyRabbit extends Sprite {
 		LMove(
 				"RABIT_LMOVE",
 				new Bitmap[] {
-						BitmapUtil.getBitmapFromRes(R.drawable.rabit_left_stop),
+						
 						BitmapUtil
 								.getBitmapFromRes(R.drawable.rabit_on_ground_left_jump0),
 						BitmapUtil
-								.getBitmapFromRes(R.drawable.rabit_on_ground_left_jump1), }), RMove(
+								.getBitmapFromRes(R.drawable.rabit_on_ground_left_jump1),
+								BitmapUtil.getBitmapFromRes(R.drawable.rabit_left_stop),}), RMove(
 				"RABIT_RMOVE",
 				new Bitmap[] {
-						BitmapUtil
-								.getBitmapFromRes(R.drawable.rabit_right_stop),
+						
 						BitmapUtil
 								.getBitmapFromRes(R.drawable.rabit_on_ground_right_jump0),
 						BitmapUtil
-								.getBitmapFromRes(R.drawable.rabit_on_ground_right_jump1) }), LJump(
+								.getBitmapFromRes(R.drawable.rabit_on_ground_right_jump1),
+								BitmapUtil
+								.getBitmapFromRes(R.drawable.rabit_right_stop),}), LJump(
 				"RABIT_LJUMP",
 				new Bitmap[] { BitmapUtil
 						.getBitmapFromRes(R.drawable.rabit_on_ground_left_jump0) }), RJump(
 				"RABIT_RJUMP",
 				new Bitmap[] { BitmapUtil
 						.getBitmapFromRes(R.drawable.rabit_on_ground_right_jump0) }), LDown(
-				"RABIT_LDOWN", new Bitmap[] { BitmapUtil.getBitmapFromRes(R.drawable.rabit_left_stop), BitmapUtil
-						.getBitmapFromRes(R.drawable.rabit_on_air_left_down) }), RDown(
-				"RABIT_RDOWN", new Bitmap[] {BitmapUtil
-						.getBitmapFromRes(R.drawable.rabit_right_stop), BitmapUtil
-						.getBitmapFromRes(R.drawable.rabit_on_air_right_down) });
+				"RABIT_LDOWN", new Bitmap[] {  BitmapUtil
+						.getBitmapFromRes(R.drawable.rabit_on_air_left_down),
+						BitmapUtil.getBitmapFromRes(R.drawable.rabit_left_stop),}), RDown(
+				"RABIT_RDOWN", new Bitmap[] { BitmapUtil
+						.getBitmapFromRes(R.drawable.rabit_on_air_right_down),
+						BitmapUtil
+						.getBitmapFromRes(R.drawable.rabit_right_stop),});
 
 		String name;
 		Bitmap[] bitmaps;
@@ -73,10 +77,10 @@ public class MyRabbit extends Sprite {
 				Rabbit_action.RMove.getBitmaps(), new int[] { 50, 250, 250 },
 				false);
 		addAction(Rabbit_action.LJump.getName(),
-				Rabbit_action.LJump.getBitmaps(), new int[] { 50, 1500, 1500 },
+				Rabbit_action.LJump.getBitmaps(), new int[] { 0, 1500, 1500 },
 				false);
 		addAction(Rabbit_action.RJump.getName(),
-				Rabbit_action.RJump.getBitmaps(), new int[] { 50, 1500, 1500 },
+				Rabbit_action.RJump.getBitmaps(), new int[] { 0, 1500, 1500 },
 				false);
 		addAction(Rabbit_action.LDown.getName(),
 				Rabbit_action.LDown.getBitmaps(), new int[] { 0, 3000},
@@ -133,7 +137,7 @@ public class MyRabbit extends Sprite {
 		// super.move(dx, dy);
 		float x = getX();
 		float y = getY();
-		if (isStop) {
+		if (isStop && (getActionName().equals(Rabbit_action.RMove.getName())||getActionName().equals(Rabbit_action.LMove.getName())||getActionName().equals(Rabbit_action.RDown.getName())||getActionName().equals(Rabbit_action.LDown.getName()))) {
 			frameIdx = 0;
 			continueMoveX = dx;
 			continueMoveY = dy;
